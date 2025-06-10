@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedTech Solutions - Advanced Medical Diagnostic Equipment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+
+        .page {
+            display: none;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-1);
+            color: white;
+            padding: 6rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Products Grid */
+        .products-section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s ease;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .product-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .icon-cardiology { background: var(--gradient-1); }
+        .icon-radiology { background: var(--gradient-2); }
+        .icon-laboratory { background: var(--gradient-3); }
+        .icon-neurology { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .icon-ophthalmology { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .icon-emergency { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+
+        .product-title {
+            flex: 1;
+        }
+
+        .product-title h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-dark);
+        }
+
+        .product-category {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .product-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .product-features {
+            margin-bottom: 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .feature-check {
+            width: 16px;
+            height: 16px;
+            background: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .price-note {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 5rem 0;
+            background: var(--white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .about-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .contact-details p {
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 2rem 0;
+                box-shadow: var(--shadow-md);
+                transform: translateY(-20px);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-card {
+                padding: 1.5rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info,
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 4rem 0 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .products-section,
+            .about-section,
+            .contact-section {
+                padding: 3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <nav class="container">
+            <a href="#" class="logo">
+                <div class="logo-icon">🏥</div>
+                MedTech Solutions
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#" class="nav-link active" data-page="products">Products</a></li>
+                <li><a href="#" class="nav-link" data-page="about">About</a></li>
+                <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Products Page -->
+        <div class="page active" id="products">
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Advanced Medical Equipment</h1>
+                        <p>Cutting-edge diagnostic and therapeutic solutions for modern healthcare facilities worldwide</p>
+                        <div class="cta-buttons">
+                            <a href="#" class="btn btn-primary">View Products</a>
+                            <a href="#" class="btn btn-secondary">Request Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="products-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Our Product Portfolio</h2>
+                        <p>Comprehensive range of medical equipment designed to enhance patient care and clinical outcomes</p>
+                    </div>
+
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-header">
+                                <div class="product-icon icon-cardiology">❤️</div>
+                                <div class="product-title">
+                                    <h3>CardioMax Pro ECG System</h3>
+                                    <div class="product-category">Cardiology Equipment</div>
+                                </div>
+                            </div>
+                            <div class="product-description">
+                                Advanced 12-lead ECG system with AI-powered interpretation, wireless connectivity, and comprehensive cardiac analysis capabilities for accurate diagnosis.
+                            </div>
+                            <div class="product-features">
+                                <div class="feature-grid">
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        AI-powered analysis
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        12-lead configuration
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Cloud integration
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Portable design
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-footer">
+                                <div class="product-price">
+                                    $18,500
+                                    <div class="price-note">Starting price</div>
+                                </div>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-header">
+                                <div class="product-icon icon-radiology">📡</div>
+                                <div class="product-title">
+                                    <h3>RadiScan Digital X-Ray</h3>
+                                    <div class="product-category">Radiology Equipment</div>
+                                </div>
+                            </div>
+                            <div class="product-description">
+                                High-resolution digital radiography system with low radiation dose, instant image processing, and PACS integration for efficient workflow.
+                            </div>
+                            <div class="product-features">
+                                <div class="feature-grid">
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Low radiation dose
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Instant processing
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        PACS compatible
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Auto-positioning
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-footer">
+                                <div class="product-price">
+                                    $45,000
+                                    <div class="price-note">Complete system</div>
+                                </div>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-header">
+                                <div class="product-icon icon-laboratory">🔬</div>
+                                <div class="product-title">
+                                    <h3>LabMax Analyzer Suite</h3>
+                                    <div class="product-category">Laboratory Equipment</div>
+                                </div>
+                            </div>
+                            <div class="product-description">
+                                Comprehensive automated chemistry analyzer with high throughput, multiple test panels, and quality control systems for accurate lab results.
+                            </div>
+                            <div class="product-features">
+                                <div class="feature-grid">
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        800 tests/hour
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Multi-panel testing
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Auto-calibration
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        LIS connectivity
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-footer">
+                                <div class="product-price">
+                                    $125,000
+                                    <div class="price-note">Full configuration</div>
+                                </div>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-header">
+                                <div class="product-icon icon-neurology">🧠</div>
+                                <div class="product-title">
+                                    <h3>NeuroScan EEG System</h3>
+                                    <div class="product-category">Neurology Equipment</div>
+                                </div>
+                            </div>
+                            <div class="product-description">
+                                Advanced EEG monitoring system with 32-channel recording, real-time analysis, and comprehensive neurological assessment capabilities.
+                            </div>
+                            <div class="product-features">
+                                <div class="feature-grid">
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        32-channel recording
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Real-time analysis
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Seizure detection
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Mobile monitoring
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-footer">
+                                <div class="product-price">
+                                    $32,000
+                                    <div class="price-note">Complete package</div>
+                                </div>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-header">
+                                <div class="product-icon icon-ophthalmology">👁️</div>
+                                <div class="product-title">
+                                    <h3>OptiVision Fundus Camera</h3>
+                                    <div class="product-category">Ophthalmology Equipment</div>
+                                </div>
+                            </div>
+                            <div class="product-description">
+                                High-resolution retinal imaging system with automated capture, AI-assisted diagnosis, and comprehensive eye examination capabilities.
+                            </div>
+                            <div class="product-features">
+                                <div class="feature-grid">
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        50° field of view
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Auto-capture
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        AI diagnostics
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Non-mydriatic
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-footer">
+                                <div class="product-price">
+                                    $28,500
+                                    <div class="price-note">Standard model</div>
+                                </div>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-header">
+                                <div class="product-icon icon-emergency">🚑</div>
+                                <div class="product-title">
+                                    <h3>EmergencyMax Defibrillator</h3>
+                                    <div class="product-category">Emergency Equipment</div>
+                                </div>
+                            </div>
+                            <div class="product-description">
+                                Advanced automated external defibrillator with real-time CPR feedback, voice prompts, and comprehensive emergency response features.
+                            </div>
+                            <div class="product-features">
+                                <div class="feature-grid">
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        CPR feedback
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Voice guidance
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Pediatric mode
+                                    </div>
+                                    <div class="feature-item">
+                                        <div class="feature-check">✓</div>
+                                        Data logging
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-footer">
+                                <div class="product-price">
+                                    $3,200
+                                    <div class="price-note">Per unit</div>
+                                </div>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
