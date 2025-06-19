@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AudioMed Pro - Professional Audiological Equipment</title>
+    <title>VK Healthcare System - Premium Audiology Equipment</title>
     <style>
         * {
             margin: 0;
@@ -12,28 +12,30 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            color: #2d3748;
+            background: #fafbfc;
+            font-size: 16px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 16px;
         }
 
         /* Header */
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
             position: fixed;
             top: 0;
-            width: 100%;
+            left: 0;
+            right: 0;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+            transition: all 0.3s ease;
         }
 
         nav {
@@ -41,723 +43,584 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
+            min-height: 64px;
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #667eea;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #065f46;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .nav-links {
-            display: flex;
+        .logo::before {
+            content: '⚕️';
+            font-size: 1.2rem;
+        }
+
+        .nav-menu {
+            display: none;
             list-style: none;
             gap: 2rem;
         }
 
-        .nav-links a {
+        .nav-menu a {
             text-decoration: none;
-            color: #333;
+            color: #4a5568;
             font-weight: 500;
             transition: color 0.3s ease;
-            position: relative;
+            font-size: 0.95rem;
         }
 
-        .nav-links a:hover {
-            color: #667eea;
+        .nav-menu a:hover {
+            color: #065f46;
         }
 
-        .nav-links a.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #667eea;
-        }
-
-        .mobile-menu {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .mobile-menu span {
-            width: 25px;
-            height: 3px;
-            background: #333;
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        /* Main Content */
-        main {
-            margin-top: 80px;
-            padding: 2rem 0;
-        }
-
-        .page {
-            display: none;
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        .page.active {
+        .menu-toggle {
             display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #065f46;
+            padding: 8px;
         }
 
         /* Hero Section */
         .hero {
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0f9ff 100%);
+            padding: 5rem 0 3rem;
+            margin-top: 64px;
             text-align: center;
-            color: white;
-            padding: 4rem 0;
-            margin-bottom: 3rem;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
-
-        /* Product Grid */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .product-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(45deg, #f0f2f5, #e1e8ed);
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: #667eea;
-        }
-
-        .product-card h3 {
-            color: #333;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
-
-        .product-card p {
-            color: #666;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .features {
-            margin-bottom: 1.5rem;
-        }
-
-        .features h4 {
-            color: #333;
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .feature-list {
-            list-style: none;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .feature-list li {
-            margin-bottom: 0.3rem;
-            padding-left: 1rem;
             position: relative;
         }
 
-        .feature-list li::before {
-            content: '✓';
-            color: #4CAF50;
-            font-weight: bold;
+        .hero::before {
+            content: '';
             position: absolute;
+            top: 0;
             left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="%23065f46" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
         }
 
-        .price {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #667eea;
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
             margin-bottom: 1rem;
+            color: #065f46;
+            line-height: 1.2;
         }
 
-        .btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            text-decoration: none;
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .cta-button {
             display: inline-block;
-            text-align: center;
+            background: #059669;
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.2);
         }
 
-        .btn:hover {
+        .cta-button:hover {
+            background: #047857;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 0;
+            background: #ffffff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1rem;
+            color: #718096;
+            margin-bottom: 3rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: #ffffff;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .service-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border-color: #a7f3d0;
         }
 
-        /* About Page */
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: #ecfdf5;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: #059669;
+            font-size: 1.25rem;
+            border: 1px solid #a7f3d0;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1a202c;
+        }
+
+        .service-card p {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 4rem 0;
+            background: #f7fafc;
+        }
+
         .about-content {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-content h2 {
-            color: #333;
-            margin-bottom: 2rem;
-            font-size: 2.5rem;
+            max-width: 700px;
+            margin: 0 auto;
             text-align: center;
         }
 
-        .about-content h3 {
-            color: #667eea;
-            margin: 2rem 0 1rem 0;
-            font-size: 1.5rem;
+        .about-content p {
+            font-size: 1.05rem;
+            color: #4a5568;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
         }
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: 1fr;
             gap: 2rem;
-            margin: 3rem 0;
+            margin-top: 3rem;
         }
 
-        .stat-card {
+        .stat-item {
             text-align: center;
-            padding: 2rem;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 15px;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
         }
 
         .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #667eea;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #059669;
             display: block;
         }
 
         .stat-label {
-            color: #666;
-            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #718096;
+            margin-top: 0.25rem;
         }
 
-        /* Contact Page */
-        .contact-content {
+        /* Contact Section */
+        .contact {
+            padding: 4rem 0;
+            background: #ffffff;
+        }
+
+        .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 2rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .contact-info {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-form {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #333;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e8ed;
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: rgba(102, 126, 234, 0.05);
-            border-radius: 10px;
+        .contact-card {
+            background: #f7fafc;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
         }
 
         .contact-icon {
-            font-size: 1.5rem;
-            color: #667eea;
-            margin-right: 1rem;
-            min-width: 40px;
+            width: 40px;
+            height: 40px;
+            background: #ecfdf5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: #059669;
+            font-size: 1.1rem;
+            border: 1px solid #a7f3d0;
+        }
+
+        .contact-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+        }
+
+        .contact-card p {
+            color: #4a5568;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .contact-card a {
+            color: #059669;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a202c;
+            color: #a0aec0;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .mobile-menu a:hover {
+            background: #f7fafc;
+            color: #065f46;
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(255, 255, 255, 0.95);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                padding: 2rem;
-                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu {
-                display: flex;
-            }
-
+        @media (min-width: 640px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
-
-            .products-grid {
-                grid-template-columns: 1fr;
+            
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .about-content {
-                padding: 2rem;
-            }
-
+            
             .stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .contact-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        @media (max-width: 480px) {
+        @media (min-width: 768px) {
             .container {
-                padding: 0 15px;
+                padding: 0 24px;
+            }
+            
+            .nav-menu {
+                display: flex;
             }
 
-            .product-card,
-            .contact-info,
-            .contact-form,
-            .about-content {
-                padding: 1.5rem;
+            .menu-toggle {
+                display: none;
             }
 
             .hero {
-                padding: 2rem 0;
+                padding: 6rem 0 4rem;
             }
 
-            .stats {
-                grid-template-columns: 1fr;
+            .hero h1 {
+                font-size: 3rem;
             }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 3.25rem;
+            }
+        }
+
+        /* Smooth animations */
+        .service-card,
+        .contact-card,
+        .stat-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .service-card.animate,
+        .contact-card.animate,
+        .stat-item.animate {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
     <header>
         <nav class="container">
-            <a href="#" class="logo">AudioMed Pro</a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#" class="nav-link active" data-page="products">Products</a></li>
-                <li><a href="#" class="nav-link" data-page="about">About</a></li>
-                <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+            <a href="#" class="logo">VK Healthcare</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
             <div class="mobile-menu" id="mobileMenu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <a href="#home" onclick="toggleMenu()">Home</a>
+                <a href="#services" onclick="toggleMenu()">Services</a>
+                <a href="#about" onclick="toggleMenu()">About</a>
+                <a href="#contact" onclick="toggleMenu()">Contact</a>
             </div>
         </nav>
     </header>
 
-    <main class="container">
-        <!-- Products Page -->
-        <div class="page active" id="products">
-            <div class="hero">
-                <h1>Professional Audiological Equipment</h1>
-                <p>Advanced diagnostic solutions for hearing healthcare professionals worldwide</p>
-            </div>
-
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">🎧</div>
-                    <h3>Digital Audiometer Pro</h3>
-                    <p>State-of-the-art pure tone audiometer with comprehensive testing capabilities for accurate hearing assessments.</p>
-                    <div class="features">
-                        <h4>Key Features:</h4>
-                        <ul class="feature-list">
-                            <li>Pure tone testing (125Hz - 8kHz)</li>
-                            <li>Speech audiometry capabilities</li>
-                            <li>Bluetooth connectivity</li>
-                            <li>Cloud data storage</li>
-                            <li>FDA approved</li>
-                        </ul>
-                    </div>
-                    <div class="price">$12,500</div>
-                    <a href="#" class="btn">Request Quote</a>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">📊</div>
-                    <h3>Impedance Audiometer</h3>
-                    <p>Advanced tympanometry and acoustic reflex testing system for comprehensive middle ear evaluation.</p>
-                    <div class="features">
-                        <h4>Key Features:</h4>
-                        <ul class="feature-list">
-                            <li>Tympanometry testing</li>
-                            <li>Acoustic reflex measurements</li>
-                            <li>ETF (Eustachian Tube Function)</li>
-                            <li>Automated probe fitting</li>
-                            <li>Pediatric protocols</li>
-                        </ul>
-                    </div>
-                    <div class="price">$8,900</div>
-                    <a href="#" class="btn">Request Quote</a>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">🧠</div>
-                    <h3>Brain Evoked Response System</h3>
-                    <p>Comprehensive ABR/ASSR system for objective hearing assessment and neurological evaluation.</p>
-                    <div class="features">
-                        <h4>Key Features:</h4>
-                        <ul class="feature-list">
-                            <li>ABR & ASSR testing</li>
-                            <li>Newborn hearing screening</li>
-                            <li>Threshold estimation</li>
-                            <li>Automated analysis</li>
-                            <li>Portable design</li>
-                        </ul>
-                    </div>
-                    <div class="price">$15,750</div>
-                    <a href="#" class="btn">Request Quote</a>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">🔊</div>
-                    <h3>Acoustic Emission Analyzer</h3>
-                    <p>Otoacoustic emissions testing system for early detection of hearing loss and cochlear function assessment.</p>
-                    <div class="features">
-                        <h4>Key Features:</h4>
-                        <ul class="feature-list">
-                            <li>TEOAE & DPOAE testing</li>
-                            <li>Rapid screening protocols</li>
-                            <li>Noise management system</li>
-                            <li>Statistical analysis</li>
-                            <li>EMR integration</li>
-                        </ul>
-                    </div>
-                    <div class="price">$11,200</div>
-                    <a href="#" class="btn">Request Quote</a>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">🎵</div>
-                    <h3>Real Ear Measurement System</h3>
-                    <p>Precision hearing aid verification and fitting system with advanced real-ear measurement capabilities.</p>
-                    <div class="features">
-                        <h4>Key Features:</h4>
-                        <ul class="feature-list">
-                            <li>Real ear insertion gain (REIG)</li>
-                            <li>Real ear aided response (REAR)</li>
-                            <li>Speechmap technology</li>
-                            <li>Hearing aid analyzer</li>
-                            <li>Fitting formulas database</li>
-                        </ul>
-                    </div>
-                    <div class="price">$9,800</div>
-                    <a href="#" class="btn">Request Quote</a>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">📱</div>
-                    <h3>Mobile Hearing Test Kit</h3>
-                    <p>Portable audiometric testing solution perfect for field testing, schools, and remote locations.</p>
-                    <div class="features">
-                        <h4>Key Features:</h4>
-                        <ul class="feature-list">
-                            <li>Tablet-based interface</li>
-                            <li>Wireless headphones</li>
-                            <li>Battery operated (8+ hours)</li>
-                            <li>Rugged carrying case</li>
-                            <li>Cloud synchronization</li>
-                        </ul>
-                    </div>
-                    <div class="price">$4,500</div>
-                    <a href="#" class="btn">Request Quote</a>
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Premium Audiology Equipment</h1>
+                    <p>Trusted provider of world-class audiology equipment and services for healthcare professionals across India and internationally</p>
+                    <a href="#contact" class="cta-button">Get Started</a>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- About Page -->
-        <div class="page" id="about">
-            <div class="about-content">
-                <h2>About AudioMed Pro</h2>
-                <p>AudioMed Pro has been at the forefront of audiological equipment innovation for over 25 years. We specialize in developing and manufacturing cutting-edge diagnostic instruments that empower hearing healthcare professionals to deliver exceptional patient care.</p>
+        <section id="services" class="services">
+            <div class="container">
+                <h2 class="section-title">Our Equipment & Services</h2>
+                <p class="section-subtitle">Comprehensive range of audiology equipment from leading national and international brands</p>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🎧</div>
+                        <h3>Audiometers</h3>
+                        <p>Advanced devices for measuring hearing thresholds across different frequencies, essential for accurate diagnosis of hearing loss and evaluation of hearing aid effectiveness.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📈</div>
+                        <h3>Impedance Audiometry</h3>
+                        <p>Specialized equipment for measuring middle ear function by assessing tympanic membrane mobility, crucial for diagnosing conductive hearing loss.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🔊</div>
+                        <h3>OAE Testing</h3>
+                        <p>Otoacoustic Emissions equipment for assessing cochlear function and screening newborns and infants for hearing loss with high precision and reliability.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🧠</div>
+                        <h3>BERA Systems</h3>
+                        <p>Brain Evoked Response Auditory systems for measuring brainstem electrical activity in response to auditory stimuli for comprehensive diagnostic evaluation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                <h3>Our Mission</h3>
-                <p>To advance hearing healthcare through innovative technology, reliable equipment, and exceptional service. We are committed to improving the quality of life for individuals with hearing impairments by providing healthcare professionals with the most advanced diagnostic tools available.</p>
-
-                <h3>Why Choose AudioMed Pro?</h3>
-                <p>Our commitment to excellence extends beyond just manufacturing equipment. We provide comprehensive training, ongoing technical support, and continuous product updates to ensure our clients achieve the best possible outcomes for their patients.</p>
-
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">About VK Healthcare System</h2>
+                <div class="about-content">
+                    <p>VK Healthcare System is your trusted partner for comprehensive audiology equipment solutions. We specialize in providing high-quality equipment from leading national and international brands, ensuring healthcare professionals have access to the most reliable and accurate diagnostic tools.</p>
+                    <p>Our extensive range includes audiology equipment accessories from all major brands, supporting healthcare providers with everything they need for precise diagnosis and exceptional patient care. We are committed to building lasting relationships with healthcare professionals by delivering excellence in every product and service.</p>
+                </div>
                 <div class="stats">
-                    <div class="stat-card">
-                        <span class="stat-number">25+</span>
-                        <div class="stat-label">Years of Innovation</div>
+                    <div class="stat-item">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Years Experience</span>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-number">5000+</span>
-                        <div class="stat-label">Healthcare Providers</div>
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Happy Clients</span>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-number">50+</span>
-                        <div class="stat-label">Countries Served</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">99.2%</span>
-                        <div class="stat-label">Customer Satisfaction</div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support Available</span>
                     </div>
                 </div>
-
-                <h3>Certifications & Standards</h3>
-                <p>All our products meet or exceed international standards including FDA 510(k) clearance, CE marking, and ISO 13485 quality management certification. We maintain the highest standards of quality and safety in everything we manufacture.</p>
-
-                <h3>Research & Development</h3>
-                <p>Our dedicated R&D team works closely with audiologists, ENT specialists, and researchers worldwide to continuously improve our products and develop new solutions for emerging challenges in hearing healthcare.</p>
             </div>
-        </div>
+        </section>
 
-        <!-- Contact Page -->
-        <div class="page" id="contact">
-            <div class="hero">
-                <h1>Contact Us</h1>
-                <p>Get in touch with our team of experts for product information, demonstrations, or technical support</p>
-            </div>
-
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Get in Touch</h3>
-                    <p>Our team is here to help you find the perfect audiological equipment solution for your practice.</p>
-
-                    <div class="contact-item">
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title">Contact Information</h2>
+                <p class="section-subtitle">Ready to enhance your audiology practice? Get in touch with our expert team</p>
+                <div class="contact-grid">
+                    <div class="contact-card">
                         <div class="contact-icon">📍</div>
-                        <div>
-                            <strong>Headquarters</strong><br>
-                            1425 Medical Drive, Suite 200<br>
-                            Austin, TX 78758, USA
-                        </div>
+                        <h3>Visit Us</h3>
+                        <p>01 Shop Ground Floor<br>Krishna Complex, Near PNB Bank<br>Kund Road, Behror-301701<br>Rajasthan, India</p>
                     </div>
-
-                    <div class="contact-item">
+                    <div class="contact-card">
                         <div class="contact-icon">📞</div>
-                        <div>
-                            <strong>Phone</strong><br>
-                            +1 (512) 555-0123<br>
-                            Toll-free: 1-800-AUDIOMED
-                        </div>
+                        <h3>Call Us</h3>
+                        <p><a href="tel:+917678531115">+91 7678531115</a><br>
+                        <a href="tel:+919991233581">+91 9991233581</a></p>
                     </div>
-
-                    <div class="contact-item">
+                    <div class="contact-card">
                         <div class="contact-icon">✉️</div>
-                        <div>
-                            <strong>Email</strong><br>
-                            sales@audiomedpro.com<br>
-                            support@audiomedpro.com
-                        </div>
+                        <h3>Email Us</h3>
+                        <p><a href="mailto:service.vkhealthcare@gmail.com">service.vkhealthcare@gmail.com</a><br>
+                        <a href="mailto:vkhealthcaresystem@gmail.com">vkhealthcaresystem@gmail.com</a></p>
                     </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">🕒</div>
-                        <div>
-                            <strong>Business Hours</strong><br>
-                            Monday - Friday: 8:00 AM - 6:00 PM CST<br>
-                            Saturday: 9:00 AM - 2:00 PM CST
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">🌐</div>
-                        <div>
-                            <strong>International</strong><br>
-                            Available in 50+ countries<br>
-                            Local distributors worldwide
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-form">
-                    <h3>Send Us a Message</h3>
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Full Name *</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="practice">Practice/Organization</label>
-                            <input type="text" id="practice" name="practice">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="interest">Product Interest</label>
-                            <select id="interest" name="interest" style="width: 100%; padding: 12px 15px; border: 2px solid #e1e8ed; border-radius: 10px; font-size: 1rem;">
-                                <option value="">Select a product...</option>
-                                <option value="audiometer">Digital Audiometer Pro</option>
-                                <option value="impedance">Impedance Audiometer</option>
-                                <option value="abr">Brain Evoked Response System</option>
-                                <option value="oae">Acoustic Emission Analyzer</option>
-                                <option value="rem">Real Ear Measurement System</option>
-                                <option value="mobile">Mobile Hearing Test Kit</option>
-                                <option value="multiple">Multiple Products</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Message *</label>
-                            <textarea id="message" name="message" rows="5" required placeholder="Please describe your needs or questions..."></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn" style="width: 100%;">Send Message</button>
-                    </form>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 VK Healthcare System. All rights reserved. Premium Audiology Equipment Solutions.</p>
+        </div>
+    </footer>
+
     <script>
-        // Navigation functionality
-        const navLinks = document.querySelectorAll('.nav-link');
-        const pages = document.querySelectorAll('.page');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const navLinksContainer = document.getElementById('navLinks');
-
-        // Page navigation
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Remove active class from all links and pages
-                navLinks.forEach(l => l.classList.remove('active'));
-                pages.forEach(p => p.classList.remove('active'));
-                
-                // Add active class to clicked link
-                link.classList.add('active');
-                
-                // Show corresponding page
-                const targetPage = link.getAttribute('data-page');
-                document.getElementById(targetPage).classList.add('active');
-                
-                // Close mobile menu if open
-                navLinksContainer.classList.remove('active');
-            });
-        });
-
-        // Mobile menu toggle
-        mobileMenu.addEventListener('click', () => {
-            navLinksContainer.classList.toggle('active');
-        });
-
-        // Form submission
-        document.querySelector('form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your message! We will contact you within 24 hours.');
-        });
-
-        // Smooth scrolling for better mobile experience
-        document.addEventListener('DOMContentLoaded', () => {
-            // Add smooth scroll behavior
-            document.documentElement.style.scrollBehavior = 'smooth';
-            
-            // Initialize any animations or interactions
-            const cards = document.querySelectorAll('.product-card');
-            cards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-            });
-        });
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
 
         // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('nav')) {
-                navLinksContainer.classList.remove('active');
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight - 20;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.service-card, .contact-card, .stat-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.borderBottomColor = 'rgba(229, 231, 235, 1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.borderBottomColor = 'rgba(229, 231, 235, 0.8)';
             }
         });
     </script>
