@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VK Healthcare System - Premium Audiology Equipment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            color: #2d3748;
+            background: #fafbfc;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            min-height: 64px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #065f46;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo::before {
+            content: '⚕️';
+            font-size: 1.2rem;
+        }
+
+        .nav-menu {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-menu a:hover {
+            color: #065f46;
+        }
+
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #065f46;
+            padding: 8px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0f9ff 100%);
+            padding: 5rem 0 3rem;
+            margin-top: 64px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="%23065f46" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #065f46;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #059669;
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(5, 150, 105, 0.2);
+        }
+
+        .cta-button:hover {
+            background: #047857;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 0;
+            background: #ffffff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1rem;
+            color: #718096;
+            margin-bottom: 3rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: #ffffff;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border-color: #a7f3d0;
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: #ecfdf5;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: #059669;
+            font-size: 1.25rem;
+            border: 1px solid #a7f3d0;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1a202c;
+        }
+
+        .service-card p {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 4rem 0;
+            background: #f7fafc;
+        }
+
+        .about-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.05rem;
+            color: #4a5568;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-number {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #059669;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-top: 0.25rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 4rem 0;
+            background: #ffffff;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: #f7fafc;
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: #ecfdf5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: #059669;
+            font-size: 1.1rem;
+            border: 1px solid #a7f3d0;
+        }
+
+        .contact-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+        }
+
+        .contact-card p {
+            color: #4a5568;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .contact-card a {
+            color: #059669;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a202c;
+            color: #a0aec0;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .mobile-menu a:hover {
+            background: #f7fafc;
+            color: #065f46;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 640px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+            
+            .nav-menu {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 0 4rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 3.25rem;
+            }
+        }
+
+        /* Smooth animations */
+        .service-card,
+        .contact-card,
+        .stat-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .service-card.animate,
+        .contact-card.animate,
+        .stat-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">VK Healthcare</a>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#home" onclick="toggleMenu()">Home</a>
+                <a href="#services" onclick="toggleMenu()">Services</a>
+                <a href="#about" onclick="toggleMenu()">About</a>
+                <a href="#contact" onclick="toggleMenu()">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Premium Audiology Equipment</h1>
+                    <p>Trusted provider of world-class audiology equipment and services for healthcare professionals across India and internationally</p>
+                    <a href="#contact" class="cta-button">Get Started</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services">
+            <div class="container">
+                <h2 class="section-title">Our Equipment & Services</h2>
+                <p class="section-subtitle">Comprehensive range of audiology equipment from leading national and international brands</p>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🎧</div>
+                        <h3>Audiometers</h3>
+                        <p>Advanced devices for measuring hearing thresholds across different frequencies, essential for accurate diagnosis of hearing loss and evaluation of hearing aid effectiveness.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📈</div>
+                        <h3>Impedance Audiometry</h3>
+                        <p>Specialized equipment for measuring middle ear function by assessing tympanic membrane mobility, crucial for diagnosing conductive hearing loss.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🔊</div>
+                        <h3>OAE Testing</h3>
+                        <p>Otoacoustic Emissions equipment for assessing cochlear function and screening newborns and infants for hearing loss with high precision and reliability.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🧠</div>
+                        <h3>BERA Systems</h3>
+                        <p>Brain Evoked Response Auditory systems for measuring brainstem electrical activity in response to auditory stimuli for comprehensive diagnostic evaluation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">About VK Healthcare System</h2>
+                <div class="about-content">
+                    <p>VK Healthcare System is your trusted partner for comprehensive audiology equipment solutions. We specialize in providing high-quality equipment from leading national and international brands, ensuring healthcare professionals have access to the most reliable and accurate diagnostic tools.</p>
+                    <p>Our extensive range includes audiology equipment accessories from all major brands, supporting healthcare providers with everything they need for precise diagnosis and exceptional patient care. We are committed to building lasting relationships with healthcare professionals by delivering excellence in every product and service.</p>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Happy Clients</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support Available</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title">Contact Information</h2>
+                <p class="section-subtitle">Ready to enhance your audiology practice? Get in touch with our expert team</p>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">📍</div>
+                        <h3>Visit Us</h3>
+                        <p>01 Shop Ground Floor<br>Krishna Complex, Near PNB Bank<br>Kund Road, Behror-301701<br>Rajasthan, India</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">📞</div>
+                        <h3>Call Us</h3>
+                        <p><a href="tel:+917678531115">+91 7678531115</a><br>
+                        <a href="tel:+919991233581">+91 9991233581</a></p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">✉️</div>
+                        <h3>Email Us</h3>
+                        <p><a href="mailto:service.vkhealthcare@gmail.com">service.vkhealthcare@gmail.com</a><br>
+                        <a href="mailto:vkhealthcaresystem@gmail.com">vkhealthcaresystem@gmail.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 VK Healthcare System. All rights reserved. Premium Audiology Equipment Solutions.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight - 20;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.service-card, .contact-card, .stat-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.borderBottomColor = 'rgba(229, 231, 235, 1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.borderBottomColor = 'rgba(229, 231, 235, 0.8)';
+            }
+        });
+    </script>
+</body>
+</html>
