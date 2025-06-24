@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog - VK Healthcare System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            color: #2d3748;
+            background: #fafbfc;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            min-height: 64px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #065f46;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo::before {
+            content: '⚕️';
+            font-size: 1.2rem;
+        }
+
+        .nav-menu {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: #065f46;
+        }
+
+        .menu-toggle {
+            display: block;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #065f46;
+            padding: 8px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .mobile-menu a:hover, .mobile-menu a.active {
+            background: #f7fafc;
+            color: #065f46;
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3); }
+            50% { box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3), 0 0 0 10px rgba(37, 211, 102, 0.1); }
+            100% { box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3); }
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1a202c;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-tooltip::after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 6px solid transparent;
+            border-left-color: #1a202c;
+        }
+
+        .whatsapp-float:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0f9ff 100%);
+            padding: 3rem 0 2rem;
+            margin-top: 64px;
+            text-align: center;
+            position: relative;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="%23065f46" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #065f46;
+            line-height: 1.2;
+        }
+
+        .page-header p {
+            font-size: 1rem;
+            color: #4a5568;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            background: white;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 64px;
+            z-index: 100;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .filter-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-tab {
+            background: #f7fafc;
+            color: #4a5568;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+        }
+
+        .filter-tab:hover, .filter-tab.active {
+            background: #059669;
+            color: white;
+            border-color: #059669;
+            transform: translateY(-1px);
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 2rem 0;
+            min-height: 60vh;
+        }
+
+        .category-section {
+            margin-bottom: 3rem;
+            display: none;
+        }
+
+        .category-section.active {
+            display: block;
+        }
+
+        .category-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-description {
+            color: #718096;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .brand-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .brand-header {
+            background: #f7fafc;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #059669;
+        }
+
+        .brand-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #065f46;
+            margin-bottom: 0.25rem;
+        }
+
+        .brand-description {
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border-color: #a7f3d0;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f7fafc 0%, #ecfdf5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #059669;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1" fill="%23059669" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23dots)"/></svg>');
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-model {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-brand {
+            font-size: 0.85rem;
+            color: #059669;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: #4a5568;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .product-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .product-btn.primary {
+            background: #059669;
+            color: white;
+        }
+
+        .product-btn.primary:hover {
+            background: #047857;
+            transform: translateY(-1px);
+        }
+
+        .product-btn.secondary {
+            background: #f7fafc;
+            color: #059669;
+            border: 1px solid #a7f3d0;
+        }
+
+        .product-btn.secondary:hover {
+            background: #ecfdf5;
+            border-color: #059669;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #718096;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a202c;
+            color: #a0aec0;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.9rem;
+            margin-top: 3rem;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 640px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .product-image {
+                height: 220px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+            
+            .nav-menu {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .filter-tabs {
+                justify-content: center;
+                overflow: visible;
+            }
+
+            .whatsapp-float {
+                bottom: 30px;
+                right: 30px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .page-header h1 {
+                font-size: 3rem;
+            }
+            
+            .product-image {
+                height: 240px;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Animations */
+        .product-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .product-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #e2e8f0;
+            border-top: 3px solid #059669;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="/" class="logo">VK Healthcare System</a>
+            <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li><a href="#" class="active">Products</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#inquiry">Inquiry</a></li>
+                <li><a href="index.html#location">Location</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="index.html">Home</a>
+                <a href="#" class="active">Products</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#inquiry">Inquiry</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/+917678531115?text=Hi, I'm interested in your audiology equipment. Can you help me?" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+        <span class="whatsapp-tooltip">Get Product Info via WhatsApp</span>
+        💬
+    </a>
+
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content">
+                    <h1>Product Catalog</h1>
+                    <p>Explore our comprehensive range of premium audiology equipment from leading international brands</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Filter -->
+        <section class="category-filter">
+            <div class="container">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="showCategory('all')">All Products</button>
+                    <button class="filter-tab" onclick="showCategory('audiometer')">🎧 Audiometers</button>
+                    <button class="filter-tab" onclick="showCategory('impedance')">📈 Impedance Audiometry</button>
+                    <button class="filter-tab" onclick="showCategory('bera')">🧠 BERA Systems</button>
+                    <button class="filter-tab" onclick="showCategory('oae')">🔊 OAE Testing</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section">
+            <div class="container">
+                
+                <!-- All Products View -->
+                <div id="all-products" class="category-section active">
+                    <div class="category-title">
+                        <span>🏥</span>
+                        Complete Product Range
+                    </div>
+                    <p class="category-description">Browse our entire collection of audiology equipment across all categories</p>
+                    
+                    <!-- Quick Category Cards -->
+                    <div class="products-grid" style="margin-bottom: 2rem;">
+                        <div class="product-card" onclick="showCategory('audiometer')">
+                            <div class="product-image">🎧</div>
+                            <div class="product-info">
+                                <div class="product-model">Audiometers</div>
+                                <div class="product-description">4 Models Available • AMPLIVOX Brand</div>
+                                <div class="product-actions">
+                                    <button class="product-btn primary">View Products</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card" onclick="showCategory('impedance')">
+                            <div class="product-image">📈</div>
+                            <div class="product-info">
+                                <div class="product-model">Impedance Audiometry</div>
+                                <div class="product-description">11 Models • 4 Leading Brands</div>
+                                <div class="product-actions">
+                                    <button class="product-btn primary">View Products</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card" onclick="showCategory('bera')">
+                            <div class="product-image">🧠</div>
+                            <div class="product-info">
+                                <div class="product-model">BERA Systems</div>
+                                <div class="product-description">4 Models • 2 Premium Brands</div>
+                                <div class="product-actions">
+                                    <button class="product-btn primary">View Products</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card" onclick="showCategory('oae')">
+                            <div class="product-image">🔊</div>
+                            <div class="product-info">
+                                <div class="product-model">OAE Testing</div>
+                                <div class="product-description">8 Models • 3 Trusted Brands</div>
+                                <div class="product-actions">
+                                    <button class="product-btn primary">View Products</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Audiometers -->
+                <div id="audiometer-products" class="category-section">
+                    <div class="category-title">
+                        <span>🎧</span>
+                        Audiometers
+                    </div>
+                    <p class="category-description">Advanced devices for measuring hearing thresholds across different frequencies</p>
+                    
+                    <div class="brand-section">
+                        <div class="brand-header">
+                            <div class="brand-name">AMPLIVOX</div>
+                            <div class="brand-description">Leading manufacturer of audiometric equipment with precision engineering</div>
+                        </div>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/audiometer/audiometer_amplivox_model-240.webp" alt="AMPLIVOX MODEL 240" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">AMPLIVOX</div>
+                                    <div class="product-model">MODEL 240</div>
+                                    <div class="product-description">Entry-level audiometer with essential features for basic hearing assessments and screening applications.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in AMPLIVOX MODEL 240 audiometer. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/audiometer/audiometer_amplivox_model-260.webp" alt="AMPLIVOX MODEL 260" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">AMPLIVOX</div>
+                                    <div class="product-model">MODEL 260</div>
+                                    <div class="product-description">Mid-range audiometer with enhanced features for comprehensive hearing evaluations and clinical use.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in AMPLIVOX MODEL 260 audiometer. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/audiometer/audiometer_amplivox_model-270.webp" alt="AMPLIVOX MODEL 270" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">AMPLIVOX</div>
+                                    <div class="product-model">MODEL 270</div>
+                                    <div class="product-description">Professional audiometer with advanced diagnostic capabilities for detailed hearing assessments.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in AMPLIVOX MODEL 270 audiometer. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/audiometer/amplivox-270-PLUS-audiometer.png" alt="AMPLIVOX MODEL 270+" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">AMPLIVOX</div>
+                                    <div class="product-model">MODEL 270+</div>
+                                    <div class="product-description">Premium audiometer with cutting-edge technology and comprehensive testing protocols for professional clinics.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in AMPLIVOX MODEL 270+ audiometer. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Impedance Audiometry -->
+                <div id="impedance-products" class="category-section">
+                    <div class="category-title">
+                        <span>📈</span>
+                        Impedance Audiometry
+                    </div>
+                    <p class="category-description">Specialized equipment for measuring middle ear function and tympanic membrane mobility</p>
+                    
+                    <!-- AMPLIVOX -->
+                    <div class="brand-section">
+                        <div class="brand-header">
+                            <div class="brand-name">AMPLIVOX</div>
+                            <div class="brand-description">Innovative impedance audiometry solutions with user-friendly interfaces</div>
+                        </div>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/impedance-audiometer/impedance-audiometer_amplivox_102.webp" alt="AMPLIVOX OTOWAVE 102-C" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">AMPLIVOX</div>
+                                    <div class="product-model">OTOWAVE 102-C</div>
+                                    <div class="product-description">Compact impedance audiometer with essential tympanometry functions for routine middle ear assessments.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in AMPLIVOX OTOWAVE 102-C. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/impedance-audiometer/impedance-audiometer_amplivox_otowave-202.webp" alt="AMPLIVOX OTOWAVE 202" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">AMPLIVOX</div>
+                                    <div class="product-model">OTOWAVE 202</div>
+                                    <div class="product-description">Advanced impedance audiometer with comprehensive testing capabilities and data management features.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in AMPLIVOX OTOWAVE 202. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/impedance-audiometer/impedance-audiometer_amplivox_otowave-302.webp" alt="AMPLIVOX OTOWAVE 302" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">AMPLIVOX</div>
+                                    <div class="product-model">OTOWAVE 302 & 302+</div>
+                                    <div class="product-description">Professional-grade impedance audiometer with advanced diagnostic protocols and research capabilities.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in AMPLIVOX OTOWAVE 302 series. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INTERACOUSTICS -->
+                    <div class="brand-section">
+                        <div class="brand-header">
+                            <div class="brand-name">INTERACOUSTICS</div>
+                            <div class="brand-description">World-leading manufacturer of diagnostic audiological equipment</div>
+                        </div>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/impedance-audiometer/impedance-audiometer_interocoustics_222.webp" alt="INTERACOUSTICS AA22" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">INTERACOUSTICS</div>
+                                    <div class="product-model">AA22</div>
+                                    <div class="product-description">Portable impedance audiometer with intuitive operation and reliable performance for clinical use.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in INTERACOUSTICS AA22. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/impedance-audiometer/impedance-audiometer_interocoustics_titan.webp" alt="INTERACOUSTICS TITAN" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">INTERACOUSTICS</div>
+                                    <div class="product-model">TITAN</div>
+                                    <div class="product-description">High-performance impedance audiometer with advanced measurement capabilities and comprehensive reporting.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in INTERACOUSTICS TITAN. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/impedance-audiometer/impedance-audiometer_interocoustics_235.webp" alt="INTERACOUSTICS AT235" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">INTERACOUSTICS</div>
+                                    <div class="product-model">AT235</div>
+                                    <div class="product-description">Versatile impedance audiometer with multi-frequency tympanometry and acoustic reflex testing capabilities.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in INTERACOUSTICS AT235. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/impedance-audiometer/impedance-audiometer_interocoustics_10.webp" alt="INTERACOUSTICS MT10" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">INTERACOUSTICS</div>
+                                    <div class="product-model">MT10</div>
+                                    <div class="product-description">Compact and portable impedance audiometer designed for mobile testing and field applications.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in INTERACOUSTICS MT10. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MAICO -->
+                    <div class="brand-section">
+                        <div class="brand-header">
+                            <div class="brand-name">MAICO</div>
+                            <div class="brand-description">German precision engineering for reliable audiological diagnostics</div>
+                        </div>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/impedance-audiometer/impedance-audiometer_maico_mico-easytymp-removebg-preview.webp" alt="MAICO easyTymp Diagnostic" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">MAICO</div>
+                                    <div class="product-model">easyTymp Diagnostic</div>
+                                    <div class="product-description">User-friendly impedance audiometer with automated testing protocols and clear result interpretation.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in MAICO easyTymp Diagnostic. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/impedance-audiometer/impedance-audiometer_maico_touchtymp-removebg-preview.webp" alt="MAICO touchTymp Diagnostic" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">MAICO</div>
+                                    <div class="product-model">touchTymp Diagnostic</div>
+                                    <div class="product-description">Touch-screen impedance audiometer with advanced features and intuitive user interface for efficient testing.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in MAICO touchTymp Diagnostic. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INVENTIS -->
+                    <div class="brand-section">
+                        <div class="brand-header">
+                            <div class="brand-name">INVENTIS</div>
+                            <div class="brand-description">Italian innovation in audiological equipment with elegant design</div>
+                        </div>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/impedance-audiometer/impedance-audiometer_inventis_timpani.webp" alt="INVENTIS TIMPANI" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">INVENTIS</div>
+                                    <div class="product-model">TIMPANI</div>
+                                    <div class="product-description">Sophisticated impedance audiometer with comprehensive testing suite and professional reporting capabilities.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in INVENTIS TIMPANI. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/impedance-audiometer/impedance-audiometer_inventis_flute.webp" alt="INVENTIS FLUTE" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">INVENTIS</div>
+                                    <div class="product-model">FLUTE</div>
+                                    <div class="product-description">Compact impedance audiometer with essential features and reliable performance for routine clinical use.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in INVENTIS FLUTE. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BERA Systems -->
+                <div id="bera-products" class="category-section">
+                    <div class="category-title">
+                        <span>🧠</span>
+                        BERA Systems
+                    </div>
+                    <p class="category-description">Brain Evoked Response Auditory systems for measuring brainstem electrical activity</p>
+                    
+                    <!-- INTERACOUSTICS -->
+                    <div class="brand-section">
+                        <div class="brand-header">
+                            <div class="brand-name">INTERACOUSTICS</div>
+                            <div class="brand-description">Advanced BERA technology for comprehensive neurological assessments</div>
+                        </div>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/brain-evoked-response-auditory-bera/brain-evoked-response-auditory-bera_interacoustics_eclipse.webp" alt="INTERACOUSTICS ECLIPSE" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">INTERACOUSTICS</div>
+                                    <div class="product-model">ECLIPSE</div>
+                                    <div class="product-description">State-of-the-art BERA system with advanced signal processing and comprehensive test protocols for detailed neurological evaluation.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in INTERACOUSTICS ECLIPSE BERA system. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IHS -->
+                    <div class="brand-section">
+                        <div class="brand-header">
+                            <div class="brand-name">INTELLIGENT HEARING SYSTEMS (IHS)</div>
+                            <div class="brand-description">Innovative BERA solutions with user-friendly interfaces and reliable results</div>
+                        </div>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/brain-evoked-response-auditory-bera/brain-evoked-response-auditory-bera_intelligent-hearing-systems-ihs_duet.webp" alt="IHS DUET" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">IHS</div>
+                                    <div class="product-model">DUET</div>
+                                    <div class="product-description">Dual-channel BERA system with advanced noise reduction and automated analysis for efficient testing.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in IHS DUET BERA system. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/brain-evoked-response-auditory-bera/brain-evoked-response-auditory-bera_intelligent-hearing-systems-ihs_solo.webp" alt="IHS SOLO" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">IHS</div>
+                                    <div class="product-model">SOLO</div>
+                                    <div class="product-description">Single-channel BERA system designed for routine screening and basic neurological assessments.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in IHS SOLO BERA system. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/placeholder.svg?height=200&width=300&text=USB+LITE" alt="IHS USB LITE" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">IHS</div>
+                                    <div class="product-model">USB LITE</div>
+                                    <div class="product-description">Portable USB-powered BERA system for mobile testing and field applications with laptop connectivity.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in IHS USB LITE BERA system. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OAE Testing -->
+                <div id="oae-products" class="category-section">
+                    <div class="category-title">
+                        <span>🔊</span>
+                        OAE Testing
+                    </div>
+                    <p class="category-description">Otoacoustic Emissions equipment for assessing cochlear function and newborn screening</p>
+                    
+                    <!-- MAICO -->
+                    <div class="brand-section">
+                        <div class="brand-header">
+                            <div class="brand-name">MAICO</div>
+                            <div class="brand-description">Precision OAE testing equipment with reliable screening capabilities</div>
+                        </div>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/otoacoustic-emissions-oae/otoacoustic-emissions-oae_maico_ero-scan.webp" alt="MAICO ERO SCAN" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">MAICO</div>
+                                    <div class="product-model">ERO SCAN</div>
+                                    <div class="product-description">Advanced OAE analyzer with comprehensive testing protocols for detailed cochlear function assessment.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in MAICO ERO SCAN OAE system. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/otoacoustic-emissions-oae/otoacoustic-emissions-oae_maico_easyscreen-removebg-preview.webp" alt="MAICO easyScan" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">MAICO</div>
+                                    <div class="product-model">easyScan</div>
+                                    <div class="product-description">User-friendly OAE screener designed for routine newborn hearing screening and quick assessments.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in MAICO easyScan OAE system. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- INTERACOUSTICS -->
+                    <div class="brand-section">
+                        <div class="brand-header">
+                            <div class="brand-name">INTERACOUSTICS</div>
+                            <div class="brand-description">Professional OAE solutions with advanced analysis capabilities</div>
+                        </div>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/otoacoustic-emissions-oae/otoacoustic-emissions-oae_interacoustics_lyra.webp" alt="INTERACOUSTICS LYRA" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">INTERACOUSTICS</div>
+                                    <div class="product-model">LYRA</div>
+                                    <div class="product-description">High-performance OAE analyzer with comprehensive testing suite and detailed analysis capabilities.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in INTERACOUSTICS LYRA OAE system. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/otoacoustic-emissions-oae/otoacoustic-emissions-oae_interacoustics_otoread.webp" alt="INTERACOUSTICS OtoRead" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">INTERACOUSTICS</div>
+                                    <div class="product-model">OtoRead</div>
+                                    <div class="product-description">Portable OAE screener with automated testing protocols for efficient newborn hearing screening programs.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in INTERACOUSTICS OtoRead OAE system. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/otoacoustic-emissions-oae/otoacoustic-emissions-oae_interacoustics_sera.webp" alt="INTERACOUSTICS SERA" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">INTERACOUSTICS</div>
+                                    <div class="product-model">SERA</div>
+                                    <div class="product-description">Advanced OAE system with research-grade capabilities and comprehensive data analysis tools.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in INTERACOUSTICS SERA OAE system. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OTODYNAMICS -->
+                    <div class="brand-section">
+                        <div class="brand-header">
+                            <div class="brand-name">OTODYNAMICS</div>
+                            <div class="brand-description">Pioneers in OAE technology with innovative testing solutions</div>
+                        </div>
+                        <div class="products-grid">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/otoacoustic-emissions-oae/otoacoustic-emissions-oae_otodynamics_oto-litedp.webp" alt="OTODYNAMICS OTOPORT LITE DP" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">OTODYNAMICS</div>
+                                    <div class="product-model">OTOPORT LITE DP</div>
+                                    <div class="product-description">Distortion Product OAE analyzer with portable design and reliable screening capabilities.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in OTODYNAMICS OTOPORT LITE DP. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/otoacoustic-emissions-oae/otoacoustic-emissions-oae_otodynamics_oto-lite-te-oae.webp" alt="OTODYNAMICS OTOPORT LITE TE" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">OTODYNAMICS</div>
+                                    <div class="product-model">OTOPORT LITE TE</div>
+                                    <div class="product-description">Transient Evoked OAE analyzer optimized for newborn screening and pediatric applications.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in OTODYNAMICS OTOPORT LITE TE. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="/web-images/otoacoustic-emissions-oae/otoacoustic-emissions-oae_otodynamics_otonova.webp" alt="OTODYNAMICS OTO NOVA" loading="lazy">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-brand">OTODYNAMICS</div>
+                                    <div class="product-model">OTO NOVA</div>
+                                    <div class="product-description">Next-generation OAE system with advanced features and comprehensive testing protocols for professional use.</div>
+                                    <div class="product-actions">
+                                        <a href="https://wa.me/+917678531115?text=Hi, I'm interested in OTODYNAMICS OTO NOVA OAE system. Can you provide more details?" class="product-btn primary" target="_blank">WhatsApp Inquiry</a>
+                                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSceiy3CN0ZfSX-RthP3v1SS_58iAAC6n3J4Dh1Vgg0qbGZipw/viewform" class="product-btn secondary" target="_blank">Detailed Quote</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 VK Healthcare System. All rights reserved. Premium Audiology Equipment Solutions.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Category filtering functionality
+        function showCategory(category) {
+            // Hide all category sections
+            const sections = document.querySelectorAll('.category-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all filter tabs
+            const tabs = document.querySelectorAll('.filter-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected category
+            const targetSection = document.getElementById(category + '-products');
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+
+            // Scroll to products section
+            const productsSection = document.querySelector('.products-section');
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const filterHeight = document.querySelector('.category-filter').offsetHeight;
+            const targetPosition = productsSection.offsetTop - headerHeight - filterHeight - 20;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+
+            // Re-trigger animations for newly visible products
+            setTimeout(() => {
+                const visibleCards = targetSection.querySelectorAll('.product-card');
+                visibleCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('animate');
+                    }, index * 100);
+                });
+            }, 300);
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe product cards for animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(card => {
+                observer.observe(card);
+            });
+
+            // Animate visible cards on page load
+            const visibleCards = document.querySelectorAll('#all-products .product-card');
+            visibleCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('animate');
+                }, index * 150);
+            });
+        });
+
+        // Header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.borderBottomColor = 'rgba(229, 231, 235, 1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.borderBottomColor = 'rgba(229, 231, 235, 0.8)';
+            }
+        });
+
+        // Product card click handlers for category overview
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryCards = document.querySelectorAll('#all-products .product-card');
+            categoryCards.forEach(card => {
+                card.style.cursor = 'pointer';
+            });
+        });
+
+        // WhatsApp button click tracking
+        document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+            link.addEventListener('click', function() {
+                console.log('WhatsApp inquiry clicked for:', this.href);
+            });
+        });
+
+        // Form button click tracking
+        document.querySelectorAll('a[href*="forms.gle"], a[href*="docs.google.com/forms"]').forEach(link => {
+            link.addEventListener('click', function() {
+                console.log('Quote form clicked');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight - 20;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Search functionality (can be enhanced later)
+        function searchProducts(query) {
+            // This can be implemented for future search functionality
+            console.log('Searching for:', query);
+        }
+
+        // Filter by brand functionality (can be enhanced later)
+        function filterByBrand(brand) {
+            // This can be implemented for future brand filtering
+            console.log('Filtering by brand:', brand);
+        }
+    </script>
+</body>
+</html>
